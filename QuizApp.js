@@ -1,4 +1,4 @@
-// Using Timer for every question and in last total time spent is also shown in this code  
+// Using Timer for every question and in last total time spent is also shown 
 
 import React, { useState, useEffect } from 'react';
 
@@ -24,25 +24,26 @@ function QuizApp() {
       options: ["function myFunction()", "function:myFunction()", "function = myFunction()", "myFunction = function()"], 
       answer: "function myFunction()" 
     },
-    { 
-      question: "How do you write 'Hello World' in an alert box ?", 
-      options: ["msgBox('Hello World');", "alert('Hello World');", "msg('Hello World');", "alertBox('Hello World');"], 
-      answer: "alert('Hello World');" 
+    {
+      question: "What is the difference between `let`, `var`, and `const`?",
+      options: [
+          "`let` and `const` have block scope, while `var` has function scope",
+          "`let` is function-scoped, `const` is block-scoped, and `var` is global-scoped",
+          "`var` and `let` are mutable, while `const` is immutable",
+          "`var` is block-scoped, `let` and `const` are function-scoped"
+      ],
+      answer: "`let` and `const` have block scope, while `var` has function scope"
     },
-    { 
-      question: "Which operator is used to assign a value to a variable ?", 
-      options: ["*", "=", "-", "x"], 
-      answer: "=" 
+    {
+      question: "What will `console.log([...new Set([1, 2, 2, 3])])` output?",
+      options: ["[1, 2, 3, 2]", "[1, 2, 2, 3]", "[1, 2, 3]", "[1, 3]"],
+      answer: "[1, 2, 3]"
     },
+
     { 
       question: "What will 'typeof null' return ?", 
       options: ["'null'", "'undefined'", "'object'", "'number'"], 
       answer: "'object'" 
-    },
-    {
-      question: "Which symbol is used for comments in JavaScript ?", 
-      options: ["//", "<!-- -->", "#", "**"], 
-      answer: "//" 
     },
     { question: "How can you add a single-line comment in JavaScript ?", 
       options: ["# This is a comment", "// This is a comment", "<!-- This is a comment -->", "/* This is a comment */"], 
@@ -106,7 +107,93 @@ function QuizApp() {
         question: "Which function is used to print something in the console?",
         options: ["print()", "console()", "console.log()", "log()"],
         answer: "console.log()"
-    }
+    },
+    {
+      question: "What is the output of `console.log(1 || 0 && 2)`?",
+      options: ["0", "1", "2", "undefined"],
+      answer: "1"
+    },
+    {
+      question: "How do you check if a variable is an array in JavaScript?",
+      options: [
+                 "typeof myVar === 'array'",
+                 "myVar.isArray()",
+                 "Array.isArray(myVar)",
+                 "myVar instanceof Array"],
+      answer: "Array.isArray(myVar)"
+
+    },
+    {
+      question: "What is the difference between '==' and '===' in JavaScript?",
+      options: [
+                 "'==' compares value and '===' compares value and type",
+                 "'==' compares value and type, '===' compares value only",
+                 "'==' is for strict comparison, '===' is for loose comparison",
+                 "'==' is a logical operator, '===' is an arithmetic operator"],
+      answer: "'==' compares value and '===' compares value and type"
+  },
+  {
+    question: "What is the difference between `call()` and `apply()` in JavaScript?",
+    options: [
+        "`call()` passes arguments as an array, while `apply()` passes arguments individually",
+        "`apply()` passes arguments as an array, while `call()` passes arguments individually",
+        "`call()` binds `this`, but `apply()` does not",
+        "Both are identical"
+    ],
+    answer: "`apply()` passes arguments as an array, while `call()` passes arguments individually"
+},
+{
+    question: "What is the output of `console.log([...'hello'])`?",
+    options: ["['h', 'e', 'l', 'l', 'o']", "['hello']", "['h', 'hello']", "undefined"],
+    answer: "['h', 'e', 'l', 'l', 'o']"
+},
+{
+    question: "What is a promise in JavaScript?",
+    options: [
+        "A function that guarantees a return value",
+        "An object representing the eventual completion or failure of an asynchronous operation",
+        "A method for handling synchronous tasks",
+        "An array of callback functions"
+    ],
+    answer: "An object representing the eventual completion or failure of an asynchronous operation"
+},
+{
+    question: "What will `console.log(typeof function() {})` output?",
+    options: ["'function'", "'object'", "'undefined'", "'null'"],
+    answer: "'function'"
+},
+{
+    question: "What is the difference between `null` and `undefined` in JavaScript?",
+    options: [
+        "`null` is an object, while `undefined` is a type",
+        "`null` is an absence of value, while `undefined` means a variable has not been initialized",
+        "`null` is a primitive type, while `undefined` is an object",
+        "`null` and `undefined` are identical"
+    ],
+    answer: "`null` is an absence of value, while `undefined` means a variable has not been initialized"
+},
+{
+    question: "What is the output of `console.log([] == ![])`?",
+    options: ["true", "false", "undefined", "NaN"],
+    answer: "true"
+},
+{
+    question: "What does `Array.prototype.reduce()` do in JavaScript?",
+    options: [
+        "It iterates over an array and creates a new array",
+        "It reduces the size of an array",
+        "It executes a reducer function on each element and returns a single output value",
+        "It removes duplicates from an array"
+    ],
+    answer: "It executes a reducer function on each element and returns a single output value"
+},
+{
+    question: "What will `console.log(typeof NaN === 'number')` output?",
+    options: ["true", "false", "undefined", "'NaN'"],
+    answer: "true"
+}
+
+
   ];
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -165,6 +252,9 @@ function QuizApp() {
   };
 
   const totalTime = questionTimes.reduce((acc, curr) => acc + curr, 0);
+  const totalTimeMinutes = Math.floor(totalTime / 60); // Get total minutes
+  const totalTimeSeconds = totalTime % 60; // Get remaining seconds
+
 
   return (
     <div style={{
@@ -181,7 +271,10 @@ function QuizApp() {
         border: '2px solid #333', 
         borderRadius: '25px', 
         width: '450px',  
-        backgroundColor: '#fff' 
+        // backgroundColor: '' ,
+        backgroundColor: '#fff' ,
+
+
       }}>
         <h1>JavaScript Quiz App</h1>
         
@@ -224,7 +317,9 @@ function QuizApp() {
             <p>Total questions : {questions.length}</p>
             <p>Correct answers : {score}</p>
             <p>Incorrect answers : {questions.length - score}</p>
-            <h4>Total time taken : {totalTime} seconds </h4>
+            {/* <h4>Total time taken : {totalTime} seconds </h4> */}
+            <h4>Total time taken : {totalTimeMinutes} minutes and {totalTimeSeconds} seconds</h4>
+
           </div>
         )}
       </div>
@@ -236,9 +331,6 @@ export default QuizApp;
 
 
 //=========================================================================================================================================
-
-//// ======= ===== Using Without Timer  ========
-
 // import React, { useState } from 'react';
 
 // const QuizApp = () => {
@@ -447,12 +539,12 @@ export default QuizApp;
 
 // export default QuizApp;
 
-//=======================================================================================================================================
+//=================================================================================================================
 
 
 //========================================================================================================================================
 
-// Single page Quiz only total Score shown in this code 
+// Single page test only total Score show
 
 // import React, { useRef, useState } from 'react';
 
