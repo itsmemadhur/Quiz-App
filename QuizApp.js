@@ -1,4 +1,4 @@
-// Using Timer for every question and in last total time spent is also shown 
+// Using Timer for every question and in last total time spent is also shown in this code  
 
 import React, { useState, useEffect } from 'react';
 
@@ -236,6 +236,9 @@ export default QuizApp;
 
 
 //=========================================================================================================================================
+
+//// ======= ===== Using Without Timer  ========
+
 // import React, { useState } from 'react';
 
 // const QuizApp = () => {
@@ -444,12 +447,12 @@ export default QuizApp;
 
 // export default QuizApp;
 
-//=================================================================================================================
+//=======================================================================================================================================
 
 
 //========================================================================================================================================
 
-// Single page test only total Score show
+// Single page Quiz only total Score shown in this code 
 
 // import React, { useRef, useState } from 'react';
 
